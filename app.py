@@ -131,7 +131,6 @@ elif menu == "📊 Jenis Kerusakan Kulit":
     jumlah_data = []
     df = pd.read_csv("metadata_raw_dataset.csv")
 
-    # GANTI 'disease' DENGAN NAMA KOLOM ASLI
     penyakit_df = df["disease"].value_counts().reset_index()
 
     penyakit_df.columns = ["Penyakit", "Jumlah Data"]
@@ -165,32 +164,9 @@ elif menu == "🔥 Tingkat Keparahan":
 
     st.title("🔥 Tingkat Keparahan")
 
-    def count_all_images(folder_path):
+    severity_df = df["severity"].value_counts().reset_index()
 
-        total = 0
-
-        for root, dirs, files in os.walk(folder_path):
-            total += len([
-                f for f in files
-                if os.path.isfile(os.path.join(root, f))
-            ])
-
-        return total
-
-    normal_count = count_all_images("Data capston project/Normal")
-    ringan_count = count_all_images("Data capston project/Ringan")
-    sedang_count = count_all_images("Data capston project/Sedang")
-    terparah_count = count_all_images("Data capston project/Terparah")
-
-    severity_df = pd.DataFrame({
-        "Severity": ["Normal", "Ringan", "Sedang", "Terparah"],
-        "Jumlah Data": [
-            normal_count,
-            ringan_count,
-            sedang_count,
-            terparah_count
-        ]
-    })
+    severity_df.columns = ["Severity", "Jumlah Data"]
 
     fig = px.pie(
         severity_df,
