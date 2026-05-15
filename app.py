@@ -129,36 +129,15 @@ elif menu == "📊 Jenis Kerusakan Kulit":
 
     penyakit = []
     jumlah_data = []
+    df = pd.read_csv("metadata_raw_dataset.csv")
 
-    base_path = "Data capston project"
+    # GANTI 'disease' DENGAN NAMA KOLOM ASLI
+    penyakit_df = df["disease"].value_counts().reset_index()
 
-    for kategori in os.listdir(base_path):
-
-        kategori_path = os.path.join(base_path, kategori)
-
-        if os.path.isdir(kategori_path):
-
-            for nama_penyakit in os.listdir(kategori_path):
-
-                penyakit_path = os.path.join(kategori_path, nama_penyakit)
-
-                if os.path.isdir(penyakit_path):
-
-                    total_file = len([
-                        f for f in os.listdir(penyakit_path)
-                        if os.path.isfile(os.path.join(penyakit_path, f))
-                    ])
-
-                    penyakit.append(nama_penyakit)
-                    jumlah_data.append(total_file)
-
-    distribusi_df = pd.DataFrame({
-        "Penyakit": penyakit,
-        "Jumlah Data": jumlah_data
-    })
+    penyakit_df.columns = ["Penyakit", "Jumlah Data"]
 
     fig = px.bar(
-        distribusi_df,
+        penyakit_df,
         x="Penyakit",
         y="Jumlah Data",
         color="Jumlah Data",
@@ -168,7 +147,7 @@ elif menu == "📊 Jenis Kerusakan Kulit":
 
     fig.update_layout(
         xaxis_title="Jenis Kerusakan Kulit",
-        yaxis_title="Jumlah",
+        yaxis_title="Jumlah Data",
         xaxis_tickangle=-45
     )
 
