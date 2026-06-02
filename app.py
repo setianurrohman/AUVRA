@@ -45,7 +45,7 @@ st.markdown("""
 # =========================
 # LOAD DATA
 # =========================
-df = pd.read_csv("metadata_raw_dataset.csv")
+df = pd.read_csv("clean_data/all_metadata.csv")
 
 # ===== SIDEBAR =====
 st.sidebar.title(f"👋 Halo, {st.session_state.user}")
@@ -103,7 +103,7 @@ if menu == "🏠 Home":
 
     col1.metric("Jumlah Dataset", len(df))
     col2.metric("Jumlah Kategori", 4)
-    col3.metric("Jumlah Metadata", len(df.columns))
+    col3.metric("Jumlah penyakit", 10)
 
     st.image("home.jpeg", use_container_width=True)
 
@@ -111,10 +111,10 @@ if menu == "🏠 Home":
 
     col4, col5, col6, col7 = st.columns(4)
 
-    col4.metric("✅ Normal", 872)
-    col5.metric("Ringan", 2894)
-    col6.metric("Sedang", 2029)
-    col7.metric("Terparah", 8307)
+    col4.metric("Normal", 1461)
+    col5.metric("Ringan", 4164)
+    col6.metric("Sedang", 4163)
+    col7.metric("Terparah", 4774)
 
     st.info(
         "AUVRA membantu proses identifikasi kondisi kulit menggunakan pendekatan visual dan machine learning."
@@ -189,7 +189,7 @@ elif menu == "📂 Preview Metadata Dataset":
 
     st.title("📂 Preview Metadata Dataset")
 
-    st.dataframe(df.head(20))
+    st.dataframe(df.head(100))
 
     st.write("""
     Tabel di atas merupakan preview metadata dataset yang digunakan 
